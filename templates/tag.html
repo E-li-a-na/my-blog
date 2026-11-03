@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ tag_name }} · 我的技术博客{% endblock %}
+{% block content %}
+<button class="filter-toggle" onclick="document.getElementById('blog-sidebar').classList.toggle('open')">⚙️ 筛选</button>
+<div class="layout">
+  {% include "_sidebar.html" %}
+  <main class="feed">
+    <div class="tag-header">
+      <h2>🏷️ {{ tag_name }}</h2>
+      <span>{{ posts|length }} 篇文章</span>
+    </div>
+    {% for post in posts %}
+    <article class="feed-item">
+      <h2><a href="{{ url_for('post_detail', slug=post['slug']) }}">{{ post['title'] }}</a></h2>
+      <p class="excerpt">{{ post['summary'] }}…</p>
+      <div class="feed-meta">
+        <span class="author">{{ site.author_name }}</span>
+        <span>{{ post['created_at'][:10] }}</span>
+        <span>{{ post['content'] | readtime }}</span>
+        {% for tag in post['tags'].split(',') if tag.strip() %}
+          <a class="tag" href="{{ url_for('tag_view', name=tag.strip()) }}">{{ tag.strip() }}</a>
+        {% endfor %}
+        <span class="views">{{ post['views'] }} 次阅读</span>
+      </div>
+    </article>
+    {% else %}
+    <p class="empty">该标签下还没有文章。</p>
+    {% endfor %}
+  </main>
+</div>
+{% endblock %}

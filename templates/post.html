@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ post['title'] }} · 我的技术博客{% endblock %}
+{% block content %}
+<div class="layout post-layout">
+  {% include "_sidebar.html" %}
+  <main class="feed">
+<article class="post-full">
+  <h1>{{ post['title'] }}</h1>
+  <div class="meta">
+    <time>{{ post['created_at'][:10] }}</time>
+    {% for tag in post['tags'].split(',') if tag.strip() %}
+      <span class="tag">{{ tag.strip() }}</span>
+    {% endfor %}
+    <span class="views">{{ post['views'] }} 次阅读</span>
+  </div>
+  <div class="markdown-body">{{ body | safe }}</div>
+</article>
+
+<section class="comments">
+  <h3>评论（{{ comments|length }}）</h3>
+  {% for c in comments %}
+  <div class="comment">
+    <div class="comment-head"><strong>{{ c['name'] }}</strong><time>{{ c['created_at'][:16] }}</time></div>
+    <p>{{ c['content'] }}</p>
+  </div>
+  {% else %}
+  <p class="empty">还没有评论，来抢沙发～</p>
+  {% endfor %}
+  <form class="comment-form" method="post" action="{{ url_for('add_comment', slug=post['slug']) }}">
+    <input type="text" name="name" placeholder="昵称" required>
+    <textarea name="content" placeholder="说点什么…" rows="3" required></textarea>
+    <button type="submit">发表评论</button>
+  </form>
+</section>
+  </main>
+</div>
+{% endblock %}

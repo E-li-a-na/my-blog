@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}分类 · 我的技术博客{% endblock %}
+{% block content %}
+<div class="page-wrap">
+  <h2 class="page-title">分类</h2>
+  <p class="page-sub">共 {{ cats|length }} 个分类</p>
+  {% for cat, posts in cats.items() %}
+  <section class="cat-group">
+    <h3>{{ cat }} <span class="cat-count">{{ posts|length }} 篇</span></h3>
+    <ul class="cat-list">
+      {% for p in posts %}
+      <li>
+        <a href="{{ url_for('post_detail', slug=p['slug']) }}">{{ p['title'] }}</a>
+        <time>{{ p['created_at'][:10] }}</time>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% else %}
+  <p class="empty">还没有文章</p>
+  {% endfor %}
+</div>
+{% endblock %}

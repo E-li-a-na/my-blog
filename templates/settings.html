@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}站点设置 · 后台{% endblock %}
+{% block content %}
+<div class="page-wrap" style="max-width:640px">
+  <h2 class="page-title">站点设置</h2>
+  <p class="page-sub">修改后全站（侧栏、关于页）立即生效</p>
+  <form class="settings-form" method="post" action="{{ url_for('admin_settings') }}" enctype="multipart/form-data">
+    <label>头像{% if s.avatar_url %}（当前已上传，可更换）{% endif %}</label>
+    <div class="avatar-preview-row">
+      {% if s.avatar_url %}
+        <img class="avatar-preview" src="{{ url_for('static', filename=s.avatar_url) }}" alt="当前头像">
+        <label class="remove-avatar"><input type="checkbox" name="remove_avatar" value="1"> 恢复为文字头像</label>
+      {% else %}
+        <span class="avatar">{{ s.avatar_text }}</span>
+      {% endif %}
+    </div>
+    <input type="file" name="avatar_file" accept="image/*">
+    <label>头像文字（未上传图片时显示在圆形头像里）</label>
+    <input type="text" name="avatar_text" value="{{ s.avatar_text }}" maxlength="4">
+    <label>昵称</label>
+    <input type="text" name="author_name" value="{{ s.author_name }}" maxlength="30">
+    <label>标语（侧栏 & 首页副标题）</label>
+    <input type="text" name="slogan" value="{{ s.slogan }}" maxlength="60">
+    <label>关于我的介绍</label>
+    <textarea name="about_text" rows="4" maxlength="500">{{ s.about_text }}</textarea>
+    <label>GitHub 主页链接（留空则不显示该图标）</label>
+    <input type="url" name="github_url" value="{{ s.github_url }}" placeholder="https://github.com/你的用户名">
+    <label>邮箱（留空则不显示）</label>
+    <input type="email" name="email" value="{{ s.email }}">
+    <label>Bilibili 主页链接（留空则不显示）</label>
+    <input type="url" name="bilibili_url" value="{{ s.bilibili_url }}">
+    <button type="submit">保存设置</button>
+  </form>
+</div>
+{% endblock %}

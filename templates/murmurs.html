@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}碎碎念 · 我的技术博客{% endblock %}
+{% block content %}
+<div class="page-wrap">
+  <h2 class="page-title">碎碎念 💭</h2>
+  <p class="page-sub">记录生活中的小确幸，分享每一个一闪而过的念头 ✨</p>
+
+  {% if session.logged_in %}
+  <form class="murmur-form" method="post" action="{{ url_for('murmurs') }}">
+    <textarea name="content" rows="2" placeholder="此刻在想什么…" maxlength="500" required></textarea>
+    <button type="submit">发布</button>
+  </form>
+  {% endif %}
+
+  <div class="murmur-grid">
+    {% for it in items %}
+    <div class="murmur-card" style="background:{{ it.color }}">
+      <p>{{ it.m['content'] }}</p>
+      <time>{{ it.m['created_at'][:16].replace('T', ' ') }}</time>
+    </div>
+    {% else %}
+    <p class="empty">还没有碎碎念，等一条新鲜的想法落下…</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}关于我 · 我的技术博客{% endblock %}
+{% block content %}
+<div class="page-wrap">
+  <div class="about-card">
+    {% if site.avatar_url %}
+      <img class="avatar big img" src="{{ url_for('static', filename=site.avatar_url) }}" alt="头像">
+    {% else %}
+      <div class="avatar big">{{ site.avatar_text }}</div>
+    {% endif %}
+    <h2>{{ site.author_name }}</h2>
+    <p class="about-slogan">{{ site.slogan }}</p>
+    <p class="about-text">
+      {{ site.about_text }}
+    </p>
+    {% if site.social %}
+    <div class="about-social">
+      {% for so in site.social %}
+        <a class="social-btn" href="{{ so.url }}" target="_blank" rel="noopener" title="{{ so.name }}">{{ so.icon }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="about-stats">
+      <div class="stat"><strong>{{ n_posts }}</strong><span>文章</span></div>
+      <div class="stat"><strong>{{ n_views }}</strong><span>总阅读</span></div>
+      <div class="stat"><strong>{{ n_msgs }}</strong><span>留言</span></div>
+    </div>
+    <div class="about-links">
+      <a class="btn" href="{{ url_for('wall') }}">去留言墙打个招呼 →</a>
+      {% if session.logged_in %}
+        <a class="btn ghost" href="{{ url_for('admin') }}">🛠️ 进入后台</a>
+        <a class="btn ghost" href="{{ url_for('admin_settings') }}">⚙️ 站点设置</a>
+        <a class="btn ghost" href="{{ url_for('logout') }}">退出登录</a>
+      {% else %}
+        <a class="btn ghost" href="{{ url_for('login') }}">🔑 管理员登录</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

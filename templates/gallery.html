@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}相册 · 我的技术博客{% endblock %}
+{% block content %}
+<section class="gallery-banner">
+  <div class="gb-text">
+    <h1>相册 📷</h1>
+    <p>我们无法判断一个瞬间的价值，直到它成为回忆</p>
+  </div>
+</section>
+
+<div class="gallery-wrap">
+  <div class="gallery-toolbar">
+    <div class="album-tabs">
+      <a class="album-tab {{ 'active' if album == '全部' }}" href="{{ url_for('gallery') }}">全部</a>
+      {% for a in albums %}
+        <a class="album-tab {{ 'active' if album == a }}" href="{{ url_for('gallery', album=a) }}">{{ a }}</a>
+      {% endfor %}
+    </div>
+    {% if session.logged_in %}
+      <a class="btn small upload-btn" href="#upload">上传照片</a>
+    {% endif %}
+  </div>
+
+  {% if session.logged_in %}
+  <form class="photo-form" id="upload" method="post" action="{{ url_for('gallery') }}" enctype="multipart/form-data">
+    <input type="file" name="photo" accept="image/*" required>
+    <input type="text" name="album" placeholder="分组（默认：风景）" maxlength="30">
+    <input type="text" name="caption" placeholder="照片说明（可选）" maxlength="100">
+    <button type="submit">上传</button>
+  </form>
+  {% endif %}
+
+  <div class="photo-grid4">
+    {% for p in photos %}
+    <figure class="photo-cell">
+      <a href="{{ p['path'] if p['path'].startswith('http') else url_for('static', filename=p['path']) }}" target="_blank">
+        <img src="{{ p['path'] if p['path'].startswith('http') else url_for('static', filename=p['path']) }}" alt="{{ p['caption'] }}" loading="lazy">
+        {% if p['caption'] %}<span class="cell-cap">{{ p['caption'] }}</span>{% endif %}
+      </a>
+      {% if p['album'] %}<span class="cell-album">{{ p['album'] }}</span>{% endif %}
+    </figure>
+    {% else %}
+    <p class="empty">这个分组还没有照片{% if session.logged_in %}，点右上角「上传照片」试试{% endif %}。</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

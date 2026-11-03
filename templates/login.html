@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}登录{% endblock %}
+{% block content %}
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-visual">
+      <img src="{{ url_for('static', filename='bg.jpg') }}" alt="">
+      <span class="visual-mark">Eliana</span>
+    </div>
+    <div class="login-panel">
+      <h2>登录 <small>· 欢迎回来</small></h2>
+      <form method="post">
+        <label>👤 用户名</label>
+        <input type="text" name="username" placeholder="请输入用户名" required>
+        <label>🔒 密码</label>
+        <input type="password" name="password" placeholder="请输入密码" required>
+        <button type="submit">登 录</button>
+      </form>
+      <p class="hint">默认账号：admin / admin123</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

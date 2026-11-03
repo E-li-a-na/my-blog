@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}留言墙 · 我的技术博客{% endblock %}
+{% block content %}
+<div class="page-wrap">
+  <h2 class="page-title">留言墙</h2>
+  <p class="page-sub">把想说的话，写成一张便利贴贴上来吧 📌</p>
+
+  <div class="note-wall">
+    {% for n in notes %}
+    <div class="note" style="background:{{ n.color }}; --rot:{{ n.rot }}deg;">
+      <span class="pin"></span>
+      <p class="note-content">{{ n.m['content'] }}</p>
+      <div class="note-meta"><strong>{{ n.m['name'] }}</strong><time>{{ n.m['created_at'][:10] }}</time></div>
+    </div>
+    {% else %}
+    <p class="empty">墙上还空空的，来贴第一张便利贴吧！</p>
+    {% endfor %}
+  </div>
+
+  <form class="note-form" method="post" action="{{ url_for('wall') }}">
+    <div class="note-form-head">✏️ 写一张便利贴</div>
+    <input type="text" name="name" placeholder="你的昵称（可留空为匿名）" maxlength="30">
+    <textarea name="content" rows="3" placeholder="写点什么…" maxlength="200" required></textarea>
+    <button type="submit">贴到墙上 📌</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+<aside class="sidebar {% if sidebar_open %}open{% endif %}" id="blog-sidebar">
+  <div class="side-card author-card">
+    {% if site.avatar_url %}
+      <img class="avatar img" src="{{ url_for('static', filename=site.avatar_url) }}" alt="头像">
+    {% else %}
+      <div class="avatar">{{ site.avatar_text }}</div>
+    {% endif %}
+    <div class="author-name">{{ site.author_name }}</div>
+    <div class="author-desc">{{ site.slogan }}</div>
+  </div>
+  <div class="side-card">
+    <div class="side-title">分类</div>
+    <nav class="side-nav">
+      {% for cat, n in side_cats %}
+        <a href="{{ url_for('tag_view', name=cat) }}"><span>{{ cat }}</span><em>{{ n }}</em></a>
+      {% else %}
+        <span class="empty-tag">暂无分类</span>
+      {% endfor %}
+    </nav>
+  </div>
+  <div class="side-card">
+    <div class="side-title">标签</div>
+    <div class="tag-cloud">
+      {% for t in side_tags %}
+        <a class="tag" href="{{ url_for('tag_view', name=t) }}">{{ t }}</a>
+      {% else %}
+        <span class="empty-tag">暂无标签</span>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="side-card">
+    <div class="side-title">找到我</div>
+    <div class="social-row">
+      {% for s in site.social %}
+        <a class="social-btn" href="{{ s.url }}" target="_blank" rel="noopener" title="{{ s.name }}">{{ s.icon }}</a>
+      {% else %}
+        <span class="empty-tag">未配置</span>
+      {% endfor %}
+    </div>
+  </div>
+</aside>

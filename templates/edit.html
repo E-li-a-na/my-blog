@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ '编辑文章' if post else '写新文章' }}{% endblock %}
+{% block content %}
+<div class="editor-card">
+  <h2>{{ '编辑文章' if post else '写新文章' }}</h2>
+  <form method="post">
+    <input class="input-title" type="text" name="title" placeholder="文章标题" value="{{ post['title'] if post else '' }}" required>
+    <input type="text" name="tags" placeholder="标签，用英文逗号分隔，如：Python, Flask" value="{{ post['tags'] if post else '' }}">
+    <textarea name="content" rows="18" placeholder="支持 Markdown 语法…" required>{{ post['content'] if post else '' }}</textarea>
+    <div class="editor-actions">
+      <button type="submit">保存{% if not post %}并发布{% endif %}</button>
+      <a class="cancel" href="{{ url_for('admin') }}">取消</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

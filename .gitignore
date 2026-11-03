@@ -1,0 +1,5 @@
+*.db
+__pycache__/
+static/uploads/
+.DS_Store
+部署指南.md

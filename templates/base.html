@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}我的技术博客{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="{{ url_for('index') }}">✍️ 我的技术博客</a>
+    <nav>
+      <a href="{{ url_for('index') }}">主页</a>
+      <a href="{{ url_for('categories') }}">分类</a>
+      <a href="{{ url_for('murmurs') }}">碎碎念</a>
+      <a href="{{ url_for('gallery') }}">相册</a>
+      <a href="{{ url_for('wall') }}">留言墙</a>
+      <a href="{{ url_for('about') }}">我的</a>
+      {% if session.logged_in %}
+        <a href="{{ url_for('admin') }}">后台</a>
+        <a href="{{ url_for('logout') }}">退出</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+<main class="container">
+  {% with messages = get_flashed_messages() %}
+    {% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="site-footer container">
+  <p>© 2025 我的技术博客 · Powered by Flask</p>
+</footer>
+</body>
+</html>

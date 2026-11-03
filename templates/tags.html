@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}标签管理 · 后台{% endblock %}
+{% block content %}
+<div class="page-wrap" style="max-width:640px">
+  <h2 class="page-title">标签管理</h2>
+  <p class="page-sub">重命名会应用到所有文章；删除会把标签从所有文章中移除</p>
+  <div class="tag-admin-list">
+    {% for name, n in tags %}
+    <div class="tag-admin-row">
+      <span class="tag">{{ name }}</span>
+      <em>{{ n }} 篇</em>
+      <form method="post" class="tag-inline" action="{{ url_for('admin_tags') }}">
+        <input type="hidden" name="action" value="rename">
+        <input type="hidden" name="name" value="{{ name }}">
+        <input type="text" name="new_name" placeholder="新名称" required>
+        <button class="btn small" type="submit">重命名</button>
+      </form>
+      <form method="post" class="tag-inline" action="{{ url_for('admin_tags') }}" onsubmit="return confirm('确定从所有文章移除该标签？')">
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="name" value="{{ name }}">
+        <button class="btn small danger" type="submit">删除</button>
+      </form>
+    </div>
+    {% else %}
+    <p class="empty">还没有标签</p>
+    {% endfor %}
+  </div>
+  <p style="margin-top:18px"><a class="btn ghost" href="{{ url_for('admin') }}">← 返回后台</a></p>
+</div>
+{% endblock %}
