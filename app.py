@@ -3,10 +3,10 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import markdown
 
 app = Flask(__name__)
-app.secret_key = "change-me-in-production-9f3a2b"
+app.secret_key = os.environ.get("SECRET_KEY", "change-me-in-production-9f3a2b")
 DB_PATH = os.environ.get("DB_PATH", os.path.join(os.path.dirname(__file__), "blog.db"))
-ADMIN_USER = "admin"
-ADMIN_PASS = "admin123"  # 上线前请修改
+ADMIN_USER = os.environ.get("ADMIN_USER", "admin")
+ADMIN_PASS = os.environ.get("ADMIN_PASS", "admin123")  # 上线前请在环境变量中设置 ADMIN_PASS
 
 
 def get_db():
