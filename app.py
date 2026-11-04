@@ -25,6 +25,7 @@ def close_db(_exc):
 
 
 def init_db():
+    os.makedirs(os.path.dirname(DB_PATH) or ".", exist_ok=True)
     db = sqlite3.connect(DB_PATH)
     db.executescript(
         """
