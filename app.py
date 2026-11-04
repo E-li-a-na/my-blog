@@ -71,49 +71,6 @@ def init_db():
         );
         """
     )
-    # 示例文章
-    cur = db.execute("SELECT COUNT(*) FROM posts")
-    if cur.fetchone()[0] == 0:
-        demo = [
-            ("你好，世界：博客开张了", "hello-world",
-             "这是博客的第一篇文章，聊聊为什么要写技术博客。",
-             "# 你好，世界\n\n为什么要写博客？\n\n- **梳理思路**：写下来才算真的懂了\n- **沉淀知识**：给自己留一份 searchable 的记忆\n- **建立连接**：让同好找到你\n\n> 坚持比完美更重要。",
-             "随笔, 元博客"),
-            ("Flask + SQLite 搭建博客的最小实践", "flask-sqlite-blog",
-             "用最少的依赖搭一个可用的动态博客：路由、模板、数据库与 Markdown 渲染。",
-             "## 技术选型\n\n- **Flask**：轻量，路由和模板够用\n- **SQLite**：零配置，单文件数据库\n- **python-markdown**：渲染正文\n\n## 核心思路\n\n1. 文章表存 `title / slug / content / tags`\n2. 详情页把 Markdown 转 HTML\n3. 管理后台用 session 做简单鉴权\n\n```python\n@app.route(\"/post/<slug>\")\ndef post(slug):\n    p = get_post(slug)\n    return render_template(\"post.html\", post=p)\n```\n\n## 下一步\n\n- [ ] 全文搜索\n- [ ] 部署到 VPS + Nginx\n",
-             "Python, Flask, Web"),
-        ]
-        now = datetime.datetime.now().isoformat(timespec="seconds")
-        db.executemany(
-            "INSERT INTO posts(title, slug, summary, content, tags, created_at) VALUES(?,?,?,?,?,?)",
-            [(t, s, su, c, tg, now) for t, s, su, c, tg in demo],
-        )
-    cur = db.execute("SELECT COUNT(*) FROM messages")
-    if cur.fetchone()[0] == 0:
-        demo_msgs = [("路人甲", "你好呀，路过留个爪 ～"), ("小雨", "博客好好看！"), ("Eliana", "欢迎来到我的世界 ✨")]
-        now = datetime.datetime.now().isoformat(timespec="seconds")
-        db.executemany(
-            "INSERT INTO messages(name, content, created_at) VALUES(?,?,?)",
-            [(n, c, now) for n, c in demo_msgs],
-        )
-    cur = db.execute("SELECT COUNT(*) FROM photos")
-    if cur.fetchone()[0] == 0:
-        demo_photos = [
-            ("https://picsum.photos/seed/blog1/800/600", "山间清晨", "风景"),
-            ("https://picsum.photos/seed/blog2/800/600", "湖畔黄昏", "风景"),
-            ("https://picsum.photos/seed/blog3/800/600", "城市夜色", "城市"),
-            ("https://picsum.photos/seed/blog4/800/600", "街头一瞥", "城市"),
-            ("https://picsum.photos/seed/blog5/800/600", "秋日林间", "风景"),
-            ("https://picsum.photos/seed/blog6/800/600", "海边日落", "风景"),
-            ("https://picsum.photos/seed/blog7/800/600", "楼宇之间", "城市"),
-            ("https://picsum.photos/seed/blog8/800/600", "旅途窗景", "旅行"),
-        ]
-        now = datetime.datetime.now().isoformat(timespec="seconds")
-        db.executemany(
-            "INSERT INTO photos(path, caption, album, created_at) VALUES(?,?,?,?)",
-            [(p, c, a, now) for p, c, a in demo_photos],
-        )
     try:
         db.execute("ALTER TABLE photos ADD COLUMN album TEXT DEFAULT '风景'")
     except sqlite3.OperationalError:
