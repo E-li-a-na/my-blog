@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}我的技术博客{% endblock %}</title>
+<title>{% block title %}{{ site.site_name }}{% endblock %}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
 <body>
 <header class="site-header">
   <div class="container header-inner">
-    <a class="logo" href="{{ url_for('index') }}">✍️ 我的技术博客</a>
+    <a class="logo" href="{{ url_for('index') }}">✍️ {{ site.site_name }}</a>
     <nav>
       <a href="{{ url_for('index') }}">主页</a>
       <a href="{{ url_for('categories') }}">分类</a>
@@ -34,7 +34,7 @@
   {% block content %}{% endblock %}
 </main>
 <footer class="site-footer container">
-  <p>© 2025 我的技术博客 · Powered by Flask</p>
+  <p>© 2025 {{ site.site_name }} · Powered by Flask</p>
 </footer>
 </body>
 </html>

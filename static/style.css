@@ -221,12 +221,15 @@ main.container:has(.gallery-banner) { max-width: none; padding: 0; }
 .scroll-down {
   position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
   z-index: 1; color: #fff; font-size: 2rem; line-height: 1;
-  animation: bounce 1.8s infinite; text-shadow: 0 2px 8px rgba(0,0,0,.5);
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
   text-decoration: none;
+  display: flex; gap: 4px;
 }
+.scroll-down span { display: inline-block; animation: bounce 1.8s infinite; }
+.scroll-down span:nth-child(2) { animation-delay: .25s; }
 @keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
 }
 
 /* 页面主体在 banner 之下时顶部不再额外留白（已并入上方规则） */

@@ -5,6 +5,8 @@
   <h2 class="page-title">站点设置</h2>
   <p class="page-sub">修改后全站（侧栏、关于页）立即生效</p>
   <form class="settings-form" method="post" action="{{ url_for('admin_settings') }}" enctype="multipart/form-data">
+    <label>站点名称（左上角 & 页面标题）</label>
+    <input type="text" name="site_name" value="{{ s.site_name }}" maxlength="30">
     <label>头像{% if s.avatar_url %}（当前已上传，可更换）{% endif %}</label>
     <div class="avatar-preview-row">
       {% if s.avatar_url %}
