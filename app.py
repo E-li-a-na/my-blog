@@ -90,7 +90,7 @@ SOCIAL_LINKS = [
 ]
 
 DEFAULT_SETTINGS = {
-    "site_name": "甜馨的小窝",
+    "site_name": "甜馨",
     "avatar_text": "三七",
     "avatar_url": "",
     "author_name": "Eliana",
