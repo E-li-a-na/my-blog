@@ -91,9 +91,9 @@ SOCIAL_LINKS = [
 
 DEFAULT_SETTINGS = {
     "site_name": "甜馨",
-    "avatar_text": "三七",
+    "avatar_text": "甜馨",
     "avatar_url": "",
-    "author_name": "Eliana",
+    "author_name": "甜馨",
     "slogan": "欢迎来到，我的世界",
     "about_text": "一个喜欢折腾技术的人。这里记录我的学习笔记、踩坑经历和一些小想法。写代码，也写生活。",
     "github_url": "https://github.com/",
