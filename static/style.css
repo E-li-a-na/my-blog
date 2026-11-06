@@ -35,22 +35,22 @@ a { color: inherit; text-decoration: none; }
 .header-inner { display: flex; justify-content: space-between; align-items: center; height: 60px; gap: 16px; }
 .logo {
   font-weight: 700; font-size: 1.1rem; color: var(--accent);
-  white-space: nowrap;      /* 站名禁止换行 */
-  flex-shrink: 0;           /* 不被导航挤压 */
-  max-width: 50%;           /* 极窄屏上限，超出用省略号而不是折行 */
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: inline-flex; align-items: center; gap: 3px;
+  white-space: nowrap; word-break: keep-all; overflow-wrap: normal;
+  flex: 0 0 auto; min-width: max-content;
 }
-.site-header nav { display: flex; align-items: center; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.logo-icon { flex: 0 0 auto; }
+.logo-text { white-space: nowrap; word-break: keep-all; display: inline-block; }
+.site-header nav { display: flex; align-items: center; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; min-width: 0; }
 .site-header nav::-webkit-scrollbar { display: none; }
-.site-header nav a { margin-left: 22px; font-size: .95rem; color: var(--muted); white-space: nowrap; }
+.site-header nav a { margin-left: 22px; font-size: .95rem; color: var(--muted); white-space: nowrap; flex: 0 0 auto; }
 .site-header nav a:hover { color: var(--accent); }
 
 /* 手机端：缩小字号与间距，保证站名与导航同行 */
 @media (max-width: 640px) {
   .header-inner { gap: 8px; }
-  .logo { font-size: .95rem; max-width: 40%; }
-  .site-header nav a { margin-left: 10px; font-size: .82rem; }
+  .logo { font-size: .92rem; }
+  .site-header nav a { margin-left: 9px; font-size: .8rem; }
 }
 
 /* hero */

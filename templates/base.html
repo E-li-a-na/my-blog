@@ -7,12 +7,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=20261104a">
 </head>
 <body>
 <header class="site-header">
   <div class="container header-inner">
-    <a class="logo" href="{{ url_for('index') }}">✍️ {{ site.site_name }}</a>
+    <a class="logo" href="{{ url_for('index') }}"><span class="logo-icon">✍️</span><span class="logo-text">{{ site.site_name }}</span></a>
     <nav>
       <a href="{{ url_for('index') }}">主页</a>
       <a href="{{ url_for('categories') }}">分类</a>
