@@ -75,6 +75,23 @@ def init_db():
         db.execute("ALTER TABLE photos ADD COLUMN album TEXT DEFAULT '风景'")
     except sqlite3.OperationalError:
         pass
+    # 内置文章：随代码发布，重新部署后自动恢复（按 slug 判断，不会重复插入）
+    seed_md = os.path.join(os.path.dirname(__file__), "content", "deep-learning-intro.md")
+    if os.path.exists(seed_md):
+        with open(seed_md, encoding="utf-8") as f:
+            seed_content = f.read()
+        db.execute(
+            "INSERT OR IGNORE INTO posts(title, slug, content, tags, summary, views, created_at) "
+            "VALUES(?,?,?,?,?,0,?)",
+            (
+                "深度学习：算法到实战 · 绪论",
+                "deep-learning-intro",
+                seed_content,
+                "深度学习,机器学习,学习笔记",
+                "人工智能的三个层次、机器学习三要素与模型的三大分类：数据标记、数据分布、建模对象。",
+                datetime.datetime.now().isoformat(timespec="seconds"),
+            ),
+        )
     db.commit()
     db.close()
 
